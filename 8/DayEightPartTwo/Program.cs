@@ -17,86 +17,76 @@ foreach (string line in inp.Split('\n'))
     i++;
 }
 
-int res = 0;
 i = 0;
+int dir1, dir2, dir3, dir4;
+List<int> result = new();
 foreach (var ind in input)
 {
     for (int i2 = 0; i2 < ind.Count; i2++)
     {
-        if (i2 == 0 || i2 + 1 == ind.Count || i == 0 || i + 1 == input.Count)
+        if(i2 != 0 && i2 + 1 != ind.Count && i != 0 && i + 1 != input.Count)
         {
-            res++;
-            Console.Write(input[i][i2]);
-        }
-        else
-        {
-            bool help = true;
-            for (int ind1 = i2 - 1; ind1 >= 0 && help; ind1--)
+            dir1 = 0;
+            dir2 = 0;
+            dir3 = 0;
+            dir4 = 0;
+            for (int ind1 = i2 - 1; ind1 >= 0 ; ind1--)
             {
-                if (input[i][i2] <= input[i][ind1])
+                if (input[i][i2] > input[i][ind1])
                 {
-                    help = false;
+                    dir1++;
+                }
+                else
+                {
+                    dir1++;
                     break;
                 }
-            }
-            if (help)
-            {
-                res++;
-                Console.Write(input[i][i2]);
-                continue;
             }
 
-            help = true;
-            for (int ind1 = i2 + 1; ind1 < ind.Count && help; ind1++)
+
+            for (int ind1 = i2 + 1; ind1 < ind.Count; ind1++)
             {
-                if (input[i][i2] <= input[i][ind1])
+                if (input[i][i2] > input[i][ind1])
                 {
-                    help = false;
+                    dir2++;
+                }
+                else
+                {
+                    dir2++;
                     break;
                 }
-            }
-            if (help)
-            {
-                res++;
-                Console.Write(input[i][i2]);
-                continue;
             }
 
-            help = true;
-            for (int ind1 = i - 1; ind1 >= 0 && help; ind1--)
+            for (int ind1 = i - 1; ind1 >= 0; ind1--)
             {
-                if (input[i][i2] <= input[ind1][i2])
+                if (input[i][i2] > input[ind1][i2])
                 {
-                    help = false;
+                    dir3++;
+                }
+                else
+                {
+                    dir3++;
                     break;
                 }
-            }
-            if (help)
-            {
-                res++;
-                Console.Write(input[i][i2]);
-                continue;
             }
 
-            help = true;
-            for (int ind1 = i + 1; ind1 < input.Count && help; ind1++)
+
+            for (int ind1 = i + 1; ind1 < input.Count; ind1++)
             {
-                if (input[i][i2] <= input[ind1][i2])
+                if (input[i][i2] > input[ind1][i2])
                 {
-                    help = false;
+                    dir4++;
+                }
+                else
+                {
+                    dir4++;
                     break;
                 }
             }
-            if (help)
-            {
-                res++;
-                Console.Write(input[i][i2]);
-                continue;
-            }
+            result.Add(dir1 * dir2 * dir3 * dir4);
         }
     }
-    Console.WriteLine();
     i++;
 }
 
-Console.WriteLine(res);
+Console.WriteLine(result.Max());
